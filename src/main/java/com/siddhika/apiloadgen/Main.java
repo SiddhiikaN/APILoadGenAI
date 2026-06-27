@@ -15,6 +15,16 @@ public class Main {
         int duration = 30;
         int rps = 5;
 
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
+                case "--url" -> url = args[i + 1];
+                case "--threads" -> threads = Integer.parseInt(args[i + 1]);
+                case "--duration" -> duration = Integer.parseInt(args[i + 1]);
+                case "--rps" -> rps = Integer.parseInt(args[i + 1]);
+
+            }
+        }
+
         LoadConfig config = new LoadConfig(url, threads, duration, rps);
         MetricsCollector metrics = new MetricsCollector();
         ChaosGenerator chaos = new ChaosGenerator();
