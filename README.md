@@ -19,8 +19,6 @@ APILoadGenAI combines load generation, concurrent execution, metrics collection,
 
 ## Results
 
-![Demo](assets/newcarbon.png) <br>
-
 ![Demo](assets/newanalysis.png)
 
 ## Target Server
