@@ -34,10 +34,10 @@ public class AIAnalyser {
             String escapedSummary = summary.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n")
                     .replace("\r", "\\r");
 
-            String body = "{\"model\": \"llama-3.3-70b-versatile\", \"messages\": [{\"role\": \"user\", \"content\": \"Analyze this load test result and give a short summary with recommendations: "
+            String body = "{\"model\": \"openai/gpt-oss-120b\", \"messages\": [{\"role\": \"user\", \"content\": \"Analyze this load test result and give a short summary with recommendations: "
                     + escapedSummary + "\"}]}";
 
-            // System.out.println("Request body: " + body);
+            //System.out.println("Request body: " + body);
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
