@@ -5,21 +5,52 @@
 A lightweight, high-performance Java load testing utility designed to simulate concurrent traffic, evaluate API stability and analyze API behavior under load.
 
 </div>
+<p align="center">
+
+<img src="https://img.shields.io/badge/Java_21-424242?style=for-the-badge">
+<img src="https://img.shields.io/badge/JUnit_5-474F7A?style=for-the-badge">
+<img src="https://img.shields.io/badge/Virtual_Threads-344955?style=for-the-badge">
+<img src="https://img.shields.io/badge/JaCoCo-2D3250?style=for-the-badge">
+<img src="https://img.shields.io/badge/Groq_API-3D5A80?style=for-the-badge">
+</p>
+
+---
 
 ## Core Architecture
 
 APILoadGenAI combines load generation, concurrent execution, metrics collection, and AI-driven analysis into a single workflow. Requests are executed through Java 21 virtual threads, performance data is gathered during execution, and the results are analyzed by an LLM to identify API behavior and performance characteristics.
 
-## Key Features
+## Features
 
-* **Concurrent Execution:** Uses Java 21 Virtual Threads (Project Loom) for high-throughput request handling with minimal overhead.
-* **AI Chaos Payloads:** Every request carries a unique AI-generated JSON payload via Groq.
-* **Latency Percentiles:** Computes real-time P50, P95, and P99 response latencies.
-* **AI-Powered Analysis:** Post-run results analyzed by LLaMA 3.3 70B with actionable recommendations.
+* **Virtual Thread Concurrency:** Java 21 Virtual Threads drive high request volumes with minimal overhead.
+* **AI-Generated Chaos Payloads:** Each request carries a unique Groq-generated JSON payload, surfacing edge cases static data misses.
+* **Continuous Integration:** GitHub Actions automatically runs the test suite on every push.
+* **Real-Time Latency Metrics:** Tracks P50, P95, and P99 latencies plus success/error counts as the run executes.
+* **LLM-Powered Post-Run Analysis:** LLaMA 3.3 70B breaks down results with concrete recommendations.
 
-## Results
+* **Automated Testing:** Core components are covered by JUnit and integration tests.<br>
+ Code coverage is measured using JaCoCo.
+
+## Sample Output
 
 ![Demo](assets/newanalysis.png)
+
+---
+
+## Testing
+
+JUnit and integration tests cover the core logic classes:
+
+| Class | Coverage |
+|---|---|
+| `LoadConfig` | CLI arg parsing and validation |
+| `MetricsCollector` | Latency math, percentile calculation, success/error counts |
+| `ReportPrinter` | Report output formatting |
+| `HttpClientWrapper` | Integration test against a local in-process HTTP server |
+
+```bash
+mvn test
+```
 
 ## Target Server
 
@@ -36,6 +67,7 @@ mvn spring-boot:run
 ## Getting Started
 
 ### Prerequisites
+
 * Java 21+
 * Maven 3.9+
 * [Groq API key](https://console.groq.com)
@@ -48,6 +80,7 @@ cd APILoadGenAI
 ```
 
 Create `.env` in the root:
+
 ```
 GROQ_API_KEY=your_key_here
 ```
@@ -72,6 +105,8 @@ java -jar target/APILoadGenAI-1.0-SNAPSHOT-jar-with-dependencies.jar \
   --duration 30 \
   --rps 5
 ```
+
+CI runs the suite automatically via GitHub Actions on every push.
 
 ---
 
